@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaflet Image Overlay Example</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        /* Set the map to take full width and height of the viewport */
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        #map {
+            height: 100vh; /* Full viewport height */
+            width: 100vw;  /* Full viewport width */
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        // Define the image bounds using the actual dimensions of the image
+        var bounds = [[0, 0], [5800, 5800]]; // Adjust these values to fit the image's dimensions
+
+        // Initialize the map with arbitrary bounds and restrict panning to the image bounds
+        var map = L.map('map', {
+            crs: L.CRS.Simple,
+            minZoom: -0.5,
+            maxZoom: 1,
+            maxBounds: bounds, // Restrict the view to the image bounds
+            maxBoundsViscosity: 1.0 // Ensures the map bounces back to maxBounds when panning
+        });
+
+        // Use the direct Imgur image URL
+        var imageUrl = 'https://i.imgur.com/F0jQnmd.jpeg';
+        L.imageOverlay(imageUrl, bounds).addTo(map);
+
+        // Fit the map to the image bounds
+        map.fitBounds(bounds);
+    </script>
+</body>
+</html>
